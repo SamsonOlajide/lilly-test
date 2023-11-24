@@ -7,6 +7,7 @@ app.use(express.static(path.join(__dirname, 'static')))
 
 
 
+//try catch is set up to make it not hang
 app.get('/stocks', async (req, res) => {
   try{
     const stockSymbols = await stocks.getStocks()
