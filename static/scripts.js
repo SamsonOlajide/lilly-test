@@ -1,3 +1,4 @@
+//Chart.js is used to sketch the line graph when a button has been pressed
 function draw(timestamps,values){
   const hours = timestamps.map(timestamps => {
       const date = new Date(timestamps);
