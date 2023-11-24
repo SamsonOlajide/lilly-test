@@ -1,77 +1,160 @@
 # Javascript Recruitment Task
 
-Javascript recruitment task
+I was told to perfrom a mini-project which had to deal with visualising stocks with some provided back-end information.
 
-## Introduction
-
-This takehome task was developed in order to test the basic skillset of a JavaScript developer.
-
-The task consists of backend and frontend functionalities.
-
-You aren’t expected to spend more than 30-60 minutes on this task (we respect your time, you don’t have to complete the task).
-
-You are free to use the internet but must solve this task yourself.
-
-During your interview you will be asked to present (in any way you like) your thought process on how you went about completing this task.
-
-## How to use
-
-Install [Git](https://git-scm.com/downloads) and [NodeJS](https://nodejs.org/en/) on your system.
-
-Verify that the above software has been downloaded correctly by executing the following commands in a terminal:
-
-`git -v`\
-`node -v`\
-`npm -v`
-
-The above commands should print a version number in the console. If you receive a message like "**X** is not recognized as an internal or external command, operable program or batch file", it may be because the software has not been added to your PATH system variable. To add the software to the path variable, search “Edit the system environment variables” in the search box. Find the ‘Path’ variable in both the ‘User Variables’ and ‘Environment Variables’ sections and add the install location of the above software (_e.g. C:\Program Files\nodejs_). 
-
-
-Create a repo in your GitHub account (do not fork via GitHub!).
-
-Then clone the contents of this repo into it:
-```sh
-git clone https://github.com/Sampuddy/JavaScript-Challenge-master.git
-cd JavaScript-Challenge-master
-git remote rename origin upstream
-git remote add origin https://github.com/your_github_account/your-repo.git
-git push -u origin
-```
-
-Install backend dependencies with the command `npm install`.
-
-Run the backend service and serve static files with the command `npm run start`.
-
-You can now begin development. To view and test the changes you have made, save the file and restart the local server by executing `npm run start` again (alternatively, install the ‘Live Server’ VS Code extension, or a similar extension if you are using another IDE, and you can view your changes in realtime).
-
-Once complete share your GitHub repo URL with your company contact.
-
-Then prepare whatever method you would like to present.
-
-## The application
-
-The goal of the application is to display how stock prices change over time.
-
-In this starter template you get:
-* A backend application written in `node.js` that serves information about stocks (for the last 10 hours).
-* A frontend template that renders an empty chart and static spinner.
-
-Getting stock data has a **10% chance of failure** (by design). The application needs to account for that.
+I was able to perfrom the tasks which were requiered to perform:
 
 ## Mission objectives
 
-* Make the spinner rotate using CSS3.
-* Query the backend for list of available stocks.
-* Query the backend for data about each stock.
-* Hide the spinner after all data is loaded.
-* Log to the console the result stock data in a structured way.
-* Fix backend (app.js) to return a meaningful error message when stock data cannot be retrieved (now the request just hangs!).
+* I was able to make the spinner rotate using CSS3.
+* I was able to query the backend for list of available stocks.
+* I was able to query the backend for data about each stock.
+* I made sure to hide the spinner after all data is loaded.
+* I logged the informations result stock data in a structured way.
+* I was also able to fix backend (app.js) to return a meaningful error message and stop the website from hanging when the back end was not able to fetch the stock data.
 
-Additional (if you have time)
-* Plot the stock data on the chart (as a line chart).
+## Additional Things which I perfromed
+* I was also able to provide an appropriate visualisation (line chart) withe the use of **Chart.js**.
+* I created different buttons with animations to make it look presenatable
 
-## Constraints
+## Detailed explanation
 
-* You are **not** to modify the code in `stocks.js`
-* The stocks API is designed to return errors sometimes. The application should gain the ability to cope with that.
-* You can use the provided mini-API for canvas operations, but you can also use other solution.
+- I started off making sure that the spinner which was given at the beginning template of the code was animated to rotate with the use of
+
+**GIF**:
+![](https://github.com/SamsonOlajide/lilly-test/blob/main/assets/loading.gif)
+<br />
+**CSS**:
+```
+.spinner{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.75s, visibility 0.75s;
+  
+}
+
+.spinner-hidden{
+  opacity: 0;
+  visibility: hidden;
+}
+
+.spinner::after {
+  content: '◌';
+  display: flex;
+  justify-content: center;
+  font-size: 300px;
+  color: crimson;
+  animation: load 2s ease infinite;
+}
+
+@keyframes load {
+  0%{ transform: rotate(0deg); color: transparent;}
+  50%{ transform: rotate(180deg); color: red;}
+  100%{ transform: rotate(3060deg); color: crimson;}
+}
+```
+- Then I started to work on querying the back end to fetch the list of available stocks. in this section I began by writing an inline script in the HTML file which gets information from the **stocks.js** code which was provided. The piece of code which I wrote below helped in making sure that the information was selected from the backend then displayed into an input tag (it will only be activated if the **GET** button is pressed):
+
+**GIF:**
+![](https://github.com/SamsonOlajide/lilly-test/blob/main/assets/fetchstocklist.gif)
+
+
+```
+async function getInfo(e){
+    showSpin()
+    e.preventDefault()
+    const res  =  await fetch(baseurl + 'stocks',
+    {
+        method : 'GET'
+    }) 
+    console.log(res)
+    const data = await res.json()
+    stockInput.value = data.stockSymbols.join(', ');
+    setTimeout(hideSpin,250)
+}       
+```
+- After quering the back-end previously, I was able to alter the previous method to query the backend for data about each stock (as long as a stock button is pressed)information of the current backend would be fetched:
+
+
+**GIF:**
+![](https://github.com/SamsonOlajide/lilly-test/blob/main/assets/fetchallstocks.gif)
+
+```
+async function msftInfo(e){
+    e.preventDefault()
+    await getStocks('MSFT')
+}
+async function aaplInfo(e){
+    e.preventDefault()
+    await getStocks('AAPL')
+}
+async function fbInfo(e){
+    e.preventDefault()
+    await getStocks('FB')
+}
+async function eaInfo(e){
+    e.preventDefault()
+    await getStocks('EA')
+}
+async function ibmInfo(e){
+    e.preventDefault()
+    await getStocks('IBM')
+}
+async function getStocks(symbol){
+    showSpin()
+    const res  =  await fetch(`${baseurl}stocks/${symbol}`,
+    {
+        method : 'GET'
+    })
+    setTimeout(hideSpin,250)
+    console.log(res);
+    const data = await res.json()
+    const formattedData = data.map(entry => `${entry.value} (${new Date(entry.timestamp)})`)
+    dataInput.value = formattedData.join(', ');
+
+    const timestamps = data.map(entry => entry.timestamp);
+    const values = data.map(entry => entry.value);
+    draw(timestamps,values)
+
+    console.log(timestamps)
+    console.log(values)
+}
+```
+- In order to hide the spinner after it loads, a CSS piece was made to hide the content. In addition, some methods are made in order to show and hide the spinner at appropriate times:
+
+**GIF:**
+![](https://github.com/SamsonOlajide/lilly-test/blob/main/assets/loadingfinished.gif)
+
+```
+const loading = document.querySelector(".spinner");
+function showSpin(){
+    loading.classList.remove("spinner-hidden");
+}
+function hideSpin(){
+    loading.classList.add("spinner-hidden");
+}
+```
+- Log to the console the result stock data in a structured way. Everytime a button is pressed the information is sent into the terminal to output the values and timestamps in the terminal.
+<br
+
+**GIF:**
+![](https://github.com/SamsonOlajide/lilly-test/blob/main/assets/terminaloutput.gif)
+<br />
+
+- I was also able to fix backend (app.js) to return a meaningful error message and stop the website from hanging when the back end was not able to fetch the stock data.
+
+- I was also able to provide an appropriate visualisation (line chart) withe the use of **Chart.js**.
+
+**Chart**:
+![](https://github.com/SamsonOlajide/lilly-test/blob/main/assets/showgraph.gif)
+
+## Things I could have done better
+Although I was able to perfrom majority of the objectives requiered, i believe that if i had more time, I wouldve been able to make sure that things where properly laid out.
+## Conclusion
+Overall, this was a good side-project as i was able to test my skills in  web development, i still need to have more practice to iron out my javascript skills as i had to perform some internet research to get some sections completed.
