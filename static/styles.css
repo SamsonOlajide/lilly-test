@@ -1,11 +1,12 @@
 *{
   font-family: 'Montserrat', sans-serif;
 }
-
+/* css for heading 1*/
 h1{
   display: flex;
   justify-content: center;
 }
+/* spinner for css */
 .spinner{
   position: fixed;
   top: 0;
@@ -19,11 +20,13 @@ h1{
   
 }
 
+/*hides the spinner*/
 .spinner-hidden{
   opacity: 0;
   visibility: hidden;
 }
 
+/*::after pseudo-element*/
 .spinner::after {
   content: '◌';
   display: flex;
@@ -33,18 +36,21 @@ h1{
   animation: load 2s ease infinite;
 }
 
+/*keyframes for the spinner*/
 @keyframes load {
   0%{ transform: rotate(0deg); color: transparent;}
   50%{ transform: rotate(180deg); color: red;}
   100%{ transform: rotate(3060deg); color: crimson;}
 }
 
+ /* centers the button "GET" in he middle of the webpage*/
 .collection-buttons{
   display: flex;
   justify-content: center;
   margin: 30px;
 }
 
+/* creates button styles*/
 .main-buttons{
   width: 130px;
   margin-right: 10px;
@@ -56,7 +62,7 @@ h1{
   box-shadow: 5px ;
   background-color: white;
 }
-
+/* when a button hovers, it gets bigger and a shadow is put behind it*/
 .main-buttons:hover{
   width: 140px;
   height: 40px;
@@ -65,29 +71,34 @@ h1{
   box-shadow: 3px 3px 3px black ;
 }
 
+/* css for sub-titles */
 .mini-title{
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+/* font size of p is set for the whole page*/
 p{
   font-size: 23px;
 }
-
+/* centers the line chart */
 .chart_center{
   display:flex;
   justify-content: center;
   align-items: center;
 }
-
+/* input tags sizing */
 .field{
   width: 170px;
 }
+/* centers the input div */
 .field-div{
   display: flex;
   justify-content: center;
   align-items: center;
 }
+/* input tags sizing */
 .bigger-field{
   width: 3000px;
 }
