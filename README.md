@@ -19,10 +19,8 @@ I was able to perfrom the tasks which were requiered to perform:
 
 ## Detailed explanation
 
-- I started off making sure that the spinner which was given at the beginning template of the code was animated to rotate
-<br />
-**GIF**:
-<br />
+- I started off making sure that the spinner which was given at the beginning template of the code was animated to rotate <br />
+**GIF**: <br />
 ![](https://github.com/SamsonOlajide/lilly-test/blob/main/assets/loading.gif)
 <br />
 **CSS**:
@@ -61,10 +59,8 @@ I was able to perfrom the tasks which were requiered to perform:
   100%{ transform: rotate(3060deg); color: crimson;}
 }
 ```
-- Then I started to work on querying the back end to fetch the list of available stocks. in this section I began by writing an inline script in the HTML file which gets information from the **stocks.js** code which was provided. The piece of code which I wrote below helped in making sure that the information was selected from the backend then displayed into an input tag (it will only be activated if the **GET** button is pressed):
-<br />
-**GIF:**
-<br />
+- Then I started to work on querying the back end to fetch the list of available stocks. in this section I began by writing an inline script in the HTML file which gets information from the **stocks.js** code which was provided. The piece of code which I wrote below helped in making sure that the information was selected from the backend then displayed into an input tag (it will only be activated if the **GET** button is pressed): <br />
+**GIF:** <br />
 ![](https://github.com/SamsonOlajide/lilly-test/blob/main/assets/fetchstocklist.gif)
 <br />
 
@@ -83,11 +79,8 @@ async function getInfo(e){
     setTimeout(hideSpin,250)
 }       
 ```
-- After quering the back-end previously, I was able to alter the previous method to query the backend for data about each stock (as long as a stock button is pressed)information of the current backend would be fetched:
-
-<br />
-**GIF:**
-<br />
+- After quering the back-end previously, I was able to alter the previous method to query the backend for data about each stock (as long as a stock button is pressed)information of the current backend would be fetched:<br />
+**GIF:** <br />
 ![](https://github.com/SamsonOlajide/lilly-test/blob/main/assets/fetchallstocks.gif)
 <br />
 
@@ -132,10 +125,8 @@ async function getStocks(symbol){
     console.log(values)
 }
 ```
-- In order to hide the spinner after it loads, a CSS piece was made to hide the content. In addition, some methods are made in order to show and hide the spinner at appropriate times:
-<br />
-**GIF:**
-<br />
+- In order to hide the spinner after it loads, a CSS piece was made to hide the content. In addition, some methods are made in order to show and hide the spinner at appropriate times:<br />
+**GIF:** <br />
 ![](https://github.com/SamsonOlajide/lilly-test/blob/main/assets/lodingfinished.gif)
 <br />
 
@@ -148,21 +139,15 @@ function hideSpin(){
     loading.classList.add("spinner-hidden");
 }
 ```
-- Log to the console the result stock data in a structured way. Everytime a button is pressed the information is sent into the terminal to output the values and timestamps in the terminal.
-
-<br />
-**GIF:**
-<br />
+- Log to the console the result stock data in a structured way. Everytime a button is pressed the information is sent into the terminal to output the values and timestamps in the terminal.<br />
+**GIF:**<br />
 ![](https://github.com/SamsonOlajide/lilly-test/blob/main/assets/terminaloutput.gif)
 <br />
 
 - I was also able to fix backend (app.js) to return a meaningful error message and stop the website from hanging when the back end was not able to fetch the stock data.
 
-- I was also able to provide an appropriate visualisation (line chart) withe the use of **Chart.js**.
-
-<br />
-**Chart**:
-<br />
+- I was also able to provide an appropriate visualisation (line chart) withe the use of **Chart.js**.<br />
+**Chart**:<br />
 ![](https://github.com/SamsonOlajide/lilly-test/blob/main/assets/showgraph.gif)
 <br />
 
