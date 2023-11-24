@@ -4,32 +4,39 @@
     <meta charset="UTF-8"> 
     <title>Lilly JS recruitment task</title>
     <link rel="stylesheet" href="styles.css">
+
+    <!-- gets information for google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" 
     rel="stylesheet">
+
+    <!-- gets the chart.js information -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
 </head>
 <body>
-    
     <h1>Home Page</h1>
+
+        <!--Spinner div-->
     <div class = "div_spin">
         <span class="spinner" id = "loader"></span>
     </div>
-
+        <!-- Chart.js div -->
     <div class = chart_center>
         <canvas id="myChart" style="width:1500%;max-width:1000px"></canvas>
     </div>
-
 
     <form>
         <hr>
         <div class = "mini-title">
             <p>Get All Stocks</p>
         </div>
+        <!-- input tag which serves as an output for the avilable lists -->
         <div class="field-div">
             <input  id = "stockInput" type="text" class="field">
         </div>
+        <!-- button for grtting the lists -->
         <div class = "collection-buttons">
             <button id = "get" class="main-buttons">GET</button>
         </div>
@@ -38,11 +45,11 @@
         <div class = "mini-title">
             <p>Get Specific Stocks</p>
         </div>
-
+        <!-- input tag which aerves as an output to provide the timestamps anf values -->
         <div class="field-div">
             <input  id = "dataInput" type="text" class="bigger-field">
         </div>
-
+        <!-- Depending on the buttons which a user presses it would provide them with the correct values-->
         <div class = "collection-buttons">
             <button id = "MSFT" class = "main-buttons">MSFT</button>
             <button id = "AAPL" class = "main-buttons">AAPL</button>
@@ -54,15 +61,23 @@
     </form>
 
     <script>
-
+        // hideSpin allows the code to remove the spinning effect (I put a timeout to show that the spin effect works.)
         setTimeout(hideSpin,300)
+
+        //gets the spinner and stores them into the loading variables
         const loading = document.querySelector(".spinner");
+
+        //this function adds the spinning effect by removing 'spinner-hidden' from spinner
         function showSpin(){
             loading.classList.remove("spinner-hidden");
         }
+
+        //this function removes the spinning effect by applying 'spinner-hidden'
         function hideSpin(){
             loading.classList.add("spinner-hidden");
         }
+        
+        //gets the id of all the buttons and stores them in different "Variables"
         const getbtn = document.getElementById('get')
         const EAbtn = document.getElementById('EA')
         const MSFTbtn = document.getElementById('MSFT')
@@ -70,20 +85,23 @@
         const FBbtn = document.getElementById('FB')
         const IBMbtn = document.getElementById('IBM')
 
+        //gets the id of all the inputs tags on the html
         const getinp = document.getElementById('stock-input')
         const getinp2 = document.getElementById('bigger-input')
 
+        // runs various functions depending on the buttons clicked 
         getbtn.addEventListener('click',getInfo)
-
         MSFTbtn.addEventListener('click',msftInfo)
         AAPLbtn.addEventListener('click',aaplInfo)
         FBbtn.addEventListener('click',fbInfo)
         IBMbtn.addEventListener('click',ibmInfo)
         EAbtn.addEventListener('click',eaInfo)
-        EAbtn.addEventListener('click',eaInfo)
 
+        //stores the local URL into a variable "baseurl"
         const baseurl =  'http://localhost:3000/'
 
+        /* when the button "GET" is pressed, this function is ran, the function fetches the stock symbols and
+        obtains the information from a json*/
         async function getInfo(e){
             showSpin()
             e.preventDefault()
@@ -97,26 +115,34 @@
             setTimeout(hideSpin,250)
         }
         
+        // function is when the 'MSFT' button is pressed
         async function msftInfo(e){
             e.preventDefault()
             await getStocks('MSFT')
         }
+        // function is when the 'AAPL' button is pressed
         async function aaplInfo(e){
             e.preventDefault()
             await getStocks('AAPL')
         }
+        // function is when the 'FB' button is pressed
         async function fbInfo(e){
             e.preventDefault()
             await getStocks('FB')
         }
+        // function is when the 'EA' button is pressed
         async function eaInfo(e){
             e.preventDefault()
             await getStocks('EA')
         }
+        // function is when the 'IBM' button is pressed
         async function ibmInfo(e){
             e.preventDefault()
             await getStocks('IBM')
         }
+
+        /* when any symbol button is pressed, this function is ran, the function fetches the stock symbols values and
+        timestamps */
         async function getStocks(symbol){
             showSpin()
             const res  =  await fetch(`${baseurl}stocks/${symbol}`,
@@ -129,12 +155,12 @@
             const formattedData = data.map(entry => `${entry.value} (${new Date(entry.timestamp)})`)
             dataInput.value = formattedData.join(', ');
 
+            //converts the timestamps and values into different variables
             const timestamps = data.map(entry => entry.timestamp);
             const values = data.map(entry => entry.value);
-            draw(timestamps,values)
 
-            console.log(timestamps)
-            console.log(values)
+            //draw function is called to plot the timestamps and values on a line graph
+            draw(timestamps,values)
         }
     </script>
 
