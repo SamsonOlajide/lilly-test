@@ -136,7 +136,7 @@ async function getStocks(symbol){
 <br />
 **GIF:**
 <br />
-![](https://github.com/SamsonOlajide/lilly-test/blob/main/assets/loadingfinished.gif)
+![](https://github.com/SamsonOlajide/lilly-test/blob/main/assets/lodingfinished.gif)
 <br />
 
 ```
