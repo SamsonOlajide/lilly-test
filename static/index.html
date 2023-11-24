@@ -1,17 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> 
     <title>Lilly JS recruitment task</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" 
+    rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 <body>
-<div>
-    <span class="spinner"></span>
-</div>
+    
+    <h1>Home Page</h1>
+    <div class = "div_spin">
+        <span class="spinner" id = "loader"></span>
+    </div>
 
-<canvas id="chart" width="1000" height="600"></canvas>
+    <div class = chart_center>
+        <canvas id="myChart" style="width:1500%;max-width:1000px"></canvas>
+    </div>
 
-<script src="scripts.js" defer></script>
+
+    <form>
+        <hr>
+        <div class = "mini-title">
+            <p>Get All Stocks</p>
+        </div>
+        <div class="field-div">
+            <input  id = "stockInput" type="text" class="field">
+        </div>
+        <div class = "collection-buttons">
+            <button id = "get" class="main-buttons">GET</button>
+        </div>
+        <hr>
+
+        <div class = "mini-title">
+            <p>Get Specific Stocks</p>
+        </div>
+
+        <div class="field-div">
+            <input  id = "dataInput" type="text" class="bigger-field">
+        </div>
+
+        <div class = "collection-buttons">
+            <button id = "MSFT" class = "main-buttons">MSFT</button>
+            <button id = "AAPL" class = "main-buttons">AAPL</button>
+            <button id = "FB" class = "main-buttons">FB</button>
+            <button id = "IBM" class = "main-buttons">IBM</button>
+            <button id = "EA" class = "main-buttons">EA</button>
+        </div>
+        <hr>
+    </form>
+
+    <script>
+
+        setTimeout(hideSpin,300)
+        const loading = document.querySelector(".spinner");
+        function showSpin(){
+            loading.classList.remove("spinner-hidden");
+        }
+        function hideSpin(){
+            loading.classList.add("spinner-hidden");
+        }
+        const getbtn = document.getElementById('get')
+        const EAbtn = document.getElementById('EA')
+        const MSFTbtn = document.getElementById('MSFT')
+        const AAPLbtn = document.getElementById('AAPL')
+        const FBbtn = document.getElementById('FB')
+        const IBMbtn = document.getElementById('IBM')
+
+        const getinp = document.getElementById('stock-input')
+        const getinp2 = document.getElementById('bigger-input')
+
+        getbtn.addEventListener('click',getInfo)
+
+        MSFTbtn.addEventListener('click',msftInfo)
+        AAPLbtn.addEventListener('click',aaplInfo)
+        FBbtn.addEventListener('click',fbInfo)
+        IBMbtn.addEventListener('click',ibmInfo)
+        EAbtn.addEventListener('click',eaInfo)
+        EAbtn.addEventListener('click',eaInfo)
+
+        const baseurl =  'http://localhost:3000/'
+
+        async function getInfo(e){
+            showSpin()
+            e.preventDefault()
+            const res  =  await fetch(baseurl + 'stocks',
+            {
+                method : 'GET'
+            })
+            console.log(res)
+            const data = await res.json()
+            stockInput.value = data.stockSymbols.join(', ');
+            setTimeout(hideSpin,250)
+        }
+        
+        async function msftInfo(e){
+            e.preventDefault()
+            await getStocks('MSFT')
+        }
+        async function aaplInfo(e){
+            e.preventDefault()
+            await getStocks('AAPL')
+        }
+        async function fbInfo(e){
+            e.preventDefault()
+            await getStocks('FB')
+        }
+        async function eaInfo(e){
+            e.preventDefault()
+            await getStocks('EA')
+        }
+        async function ibmInfo(e){
+            e.preventDefault()
+            await getStocks('IBM')
+        }
+        async function getStocks(symbol){
+            showSpin()
+            const res  =  await fetch(`${baseurl}stocks/${symbol}`,
+            {
+                method : 'GET'
+            })
+            setTimeout(hideSpin,250)
+            console.log(res);
+            const data = await res.json()
+            const formattedData = data.map(entry => `${entry.value} (${new Date(entry.timestamp)})`)
+            dataInput.value = formattedData.join(', ');
+
+            const timestamps = data.map(entry => entry.timestamp);
+            const values = data.map(entry => entry.value);
+            draw(timestamps,values)
+
+            console.log(timestamps)
+            console.log(values)
+        }
+    </script>
+
+    <script src="scripts.js" defer></script>
 </body>
-</html>
+</html> 

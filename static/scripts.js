@@ -1,24 +1,27 @@
-const canvas = document.getElementById('chart')
-const ctx = canvas.getContext('2d')
-
-function drawLine (start, end, style) {
-  ctx.beginPath()
-  ctx.strokeStyle = style || 'black'
-  ctx.moveTo(...start)
-  ctx.lineTo(...end)
-  ctx.stroke()
+function draw(timestamps,values){
+  const hours = timestamps.map(timestamps => {
+      const date = new Date(timestamps);
+      return date.getHours();
+  });
+  console.log("Hours:", hours);
+  
+  new Chart("myChart", {
+  type: "line",
+  data: {
+      labels: hours,
+      datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(255,61,71,2)",
+      borderColor: "rgba(255,61,71,0.5)",
+      data: values
+      }]
+  },
+  options: {
+      legend: {display: false},
+      scales: {
+      yAxes: [{ticks: {min: Math.min(...values), max:Math.max(...values)}}],
+      }
+  }
+  });
 }
-
-function drawTriangle (apex1, apex2, apex3) {
-  ctx.beginPath()
-  ctx.moveTo(...apex1)
-  ctx.lineTo(...apex2)
-  ctx.lineTo(...apex3)
-  ctx.fill()
-}
-
-drawLine([50, 50], [50, 550])
-drawTriangle([35, 50], [65, 50], [50, 35])
-
-drawLine([50, 550], [950, 550])
-drawTriangle([950, 535], [950, 565], [965, 550])

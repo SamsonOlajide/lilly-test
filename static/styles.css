@@ -1,10 +1,93 @@
-.spinner{
-  font-size: 140px;
-}
-.spinner:after {
-  content: '◌';
+*{
+  font-family: 'Montserrat', sans-serif;
 }
 
-#chart {
-    border: 1px solid black;
+h1{
+  display: flex;
+  justify-content: center;
+}
+.spinner{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.75s, visibility 0.75s;
+  
+}
+
+.spinner-hidden{
+  opacity: 0;
+  visibility: hidden;
+}
+
+.spinner::after {
+  content: '◌';
+  display: flex;
+  justify-content: center;
+  font-size: 300px;
+  color: crimson;
+  animation: load 2s ease infinite;
+}
+
+@keyframes load {
+  0%{ transform: rotate(0deg); color: transparent;}
+  50%{ transform: rotate(180deg); color: red;}
+  100%{ transform: rotate(3060deg); color: crimson;}
+}
+
+.collection-buttons{
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+}
+
+.main-buttons{
+  width: 130px;
+  margin-right: 10px;
+  height: 30px;
+  border-radius: 20px;
+  border-style:solid;
+  border-width: 1px;
+  transition: 0.15s;
+  box-shadow: 5px ;
+  background-color: white;
+}
+
+.main-buttons:hover{
+  width: 140px;
+  height: 40px;
+  background-color: crimson;
+  color: white;
+  box-shadow: 3px 3px 3px black ;
+}
+
+.mini-title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+p{
+  font-size: 23px;
+}
+
+.chart_center{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.field{
+  width: 170px;
+}
+.field-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bigger-field{
+  width: 3000px;
 }
